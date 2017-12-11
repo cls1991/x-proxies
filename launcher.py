@@ -6,6 +6,7 @@
 
 import os
 
+from api import web
 from backend import spider
 
 # checkout to project directory
@@ -20,6 +21,8 @@ def main():
     s = spider.Spider()
     for proxy in s.proxies:
         print(proxy)
+
+    web.app.run()
 
 
 if __name__ == '__main__':
