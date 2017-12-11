@@ -9,6 +9,7 @@ import time
 import requests
 from bs4 import BeautifulSoup
 
+import conn
 import const
 
 
@@ -60,3 +61,10 @@ class Spider(object):
                 ip = td[1].get_text()
                 port = td[2].get_text()
                 yield ':'.join([ip, port])
+
+    def publish(self):
+        """
+        :return:
+        """
+        proxies = [proxy for proxy in self.proxies]
+        conn.RedisConnection().sadd('proxies', *proxies)

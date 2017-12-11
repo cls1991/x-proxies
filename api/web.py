@@ -8,6 +8,8 @@ from flask import (
     Flask, jsonify, make_response
 )
 
+from backend import conn
+
 app = Flask(__name__)
 
 
@@ -16,7 +18,8 @@ def get_proxies():
     """
     :return:
     """
-    return jsonify()
+    proxies = conn.RedisConnection().smembers('proxies')
+    return jsonify({'proxies': list(proxies)})
 
 
 @app.errorhandler(404)

@@ -19,8 +19,7 @@ def main():
     :return:
     """
     s = spider.Spider()
-    for proxy in s.proxies:
-        print(proxy)
+    s.publish()
 
     web.app.run()
 
