@@ -4,13 +4,11 @@
     Web spiders, for crawling free ip proxies.
 """
 
-import time
-
-import requests
 from bs4 import BeautifulSoup
 
-import conn
-import const
+from . import (
+    conn, const, util
+)
 
 
 class Spider(object):
@@ -22,35 +20,18 @@ class Spider(object):
         """
         self.page_num = page_num
 
-    def request_html(self, url):
+    @property
+    def proxies(self):
         """
-        :param url:
         :return:
         """
         headers = {
             'user-agent': const.USER_AGENT,
             'referer': const.REFER_URL
         }
-        resp = None
-        try:
-            r = requests.get(url, headers=headers)
-            if r.status_code == 200:
-                resp = r.text
-        except requests.RequestException as e:
-            print(e)
-        finally:
-            time.sleep(2)
-
-        return resp
-
-    @property
-    def proxies(self):
-        """
-        :return:
-        """
         urls = ['{url}/{page}'.format(url=self.url, page=i + 1) for i in xrange(self.page_num)]
         for url in urls:
-            html = self.request_html(url)
+            html = util.request_html(url, headers=headers)
             if not html:
                 print('fetch html of url %s failed.' % url)
                 continue

@@ -10,7 +10,7 @@ from gevent import monkey
 from gevent import pywsgi
 
 from api import web
-from backend import scheduler
+from backend import task
 
 # checkout to project directory
 project = os.path.split(os.path.realpath(__file__))[0]
@@ -39,5 +39,5 @@ if __name__ == '__main__':
     http_server = pywsgi.WSGIServer(('', port), web.app)
     print('Running on http://127.0.0.1:%s' % port)
     gevent.spawn(http_server.start)
-    scheduler.start()
+    task.start()
     loop()
