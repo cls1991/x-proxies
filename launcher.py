@@ -3,26 +3,41 @@
 """
     launcher.py: start web crawler service, flask api service.
 """
-
 import os
 
+import gevent
+from gevent import monkey
+from gevent import pywsgi
+
 from api import web
-from backend import spider
+from backend import scheduler
 
 # checkout to project directory
 project = os.path.split(os.path.realpath(__file__))[0]
 os.chdir(project)
 
+monkey.patch_all()
 
-def main():
+
+def master():
     """
     :return:
     """
-    s = spider.Spider()
-    s.publish()
+    while True:
+        gevent.sleep(600)
 
-    web.app.run()
+
+def loop():
+    """
+    :return:
+    """
+    gevent.joinall([gevent.spawn(master)])
 
 
 if __name__ == '__main__':
-    main()
+    port = 5000
+    http_server = pywsgi.WSGIServer(('', port), web.app)
+    print('Running on http://127.0.0.1:%s' % port)
+    gevent.spawn(http_server.start)
+    scheduler.start()
+    loop()
