@@ -6,8 +6,9 @@
 import os
 
 import gevent
-from gevent import monkey
-from gevent import pywsgi
+from gevent import (
+    monkey, pywsgi
+)
 
 from api import web
 from backend import task

@@ -48,4 +48,4 @@ class Spider(object):
         :return:
         """
         proxies = [proxy for proxy in self.proxies]
-        conn.RedisConnection().sadd('proxies', *proxies)
+        conn.RedisConnection().sadd(const.REDIS_KEY, *proxies)
