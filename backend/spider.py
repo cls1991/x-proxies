@@ -33,7 +33,7 @@ class Spider(object):
         for url in urls:
             html = util.request_html(url, headers=headers)
             if not html:
-                print('fetch html of url %s failed.' % url)
+                print('fetch html of url {0} failed.'.format(url))
                 continue
             soup = BeautifulSoup(html, 'html.parser')
             tr = soup.find('table', {'id': 'ip_list'}).find_all('tr')[1:]

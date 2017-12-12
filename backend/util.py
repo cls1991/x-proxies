@@ -6,8 +6,6 @@
 
 import requests
 
-import const
-
 
 def request_html(url, method='GET', headers=None, proxies=None):
     """
