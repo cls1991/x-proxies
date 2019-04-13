@@ -7,7 +7,7 @@ gevent==1.2.2
 greenlet==0.4.12
 idna==2.6
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.10.1
 MarkupSafe==1.0
 redis==2.10.6
 requests==2.20.0
